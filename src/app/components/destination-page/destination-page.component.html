@@ -1,0 +1,303 @@
+<div class="dest-page" *ngIf="dest; else notFoundTpl">
+
+  <!-- HERO -->
+  <section class="dp-hero" [style.backgroundImage]="'url(' + dest.heroImage + ')'">
+    <div class="dp-hero-overlay"></div>
+    <div class="dp-hero-content">
+      <button class="dp-back" (click)="goHome()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <span class="dp-hero-tag"><i class="fas fa-map-marker-alt"></i> {{ isInternational ? 'International' : 'Domestic' }}</span>
+      <h1>{{ dest.name }}</h1>
+      <p>{{ dest.tagline }}</p>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="dp-packages">
+    <div class="container">
+      <div class="section-header">
+        <h2>Select Your Package</h2>
+        <p>Pick the duration that suits you best — every package includes flights, hotels & guided tours</p>
+      </div>
+
+      <div class="dp-pkg-grid">
+        <div class="dp-pkg-card" *ngFor="let pkg of dest.packages; let i = index"
+             [class.featured]="i === 1"
+             (click)="openDetail(pkg)">
+
+          <!-- circular image -->
+          <div class="dp-circle-wrap">
+            <img class="dp-pkg-img" [src]="pkg.image" [alt]="pkg.name" loading="lazy">
+            <div class="dp-circle-overlay"></div>
+            <span class="dp-badge" *ngIf="pkg.badge">{{ pkg.badge }}</span>
+            <div class="dp-circle-hover">
+              <button class="dp-explore-btn" (click)="$event.stopPropagation(); openDetail(pkg)">
+                <i class="fas fa-eye"></i> View
+              </button>
+            </div>
+          </div>
+
+          <!-- card body -->
+          <div class="dp-card-body">
+            <span class="dp-duration-tag">{{ pkg.duration }}</span>
+            <h3>{{ pkg.name }}</h3>
+            <ul class="dp-highlights">
+              <li *ngFor="let h of pkg.highlights.slice(0,3)">
+                <i class="fas fa-check-circle"></i> {{ h }}
+              </li>
+            </ul>
+            <div class="dp-pkg-footer">
+              <div class="dp-price">
+                <span class="dp-from">Starting from</span>
+                <span class="dp-amount">₹ {{ pkg.price | number }}</span>
+                <span class="dp-pp">per person</span>
+              </div>
+              <button class="btn btn-primary btn-sm dp-view-btn" (click)="$event.stopPropagation(); openDetail(pkg)">
+                Book <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- NOT FOUND -->
+<ng-template #notFoundTpl>
+  <div class="dp-notfound">
+    <i class="fas fa-map-marked-alt"></i>
+    <h2>Destination not found</h2>
+    <button class="btn btn-primary" (click)="goHome()">Go Home</button>
+  </div>
+</ng-template>
+
+<!-- ===================== DETAIL DIALOG ===================== -->
+<div class="dp-overlay" *ngIf="detailPkg" (click)="closeAll()">
+  <div class="dp-dialog dp-dialog--detail" (click)="$event.stopPropagation()">
+
+    <!-- Dialog Hero -->
+    <div class="dp-dlg-hero" [style.backgroundImage]="'url(' + detailPkg.image + ')'">
+      <div class="dp-dlg-hero-overlay"></div>
+      <button class="dp-dlg-close" (click)="closeAll()"><i class="fas fa-times"></i></button>
+      <div class="dp-dlg-hero-info">
+        <span class="dp-badge dp-badge--hero" *ngIf="detailPkg.badge">{{ detailPkg.badge }}</span>
+        <h2>{{ detailPkg.name }}</h2>
+        <p><i class="fas fa-map-marker-alt"></i>
+          {{ detailPkg.itinerary[1].title }}, {{ detailPkg.itinerary[2].title }}...</p>
+      </div>
+    </div>
+
+    <!-- Dialog Body -->
+    <div class="dp-dlg-body">
+      <div class="dp-dlg-left">
+
+        <!-- Highlights -->
+        <div class="dp-dlg-section">
+          <h4><i class="fas fa-star"></i> Tour Highlights</h4>
+          <ul>
+            <li *ngFor="let h of detailPkg.highlights">
+              <i class="fas fa-check-circle"></i> {{ h }}
+            </li>
+          </ul>
+        </div>
+
+        <!-- Inclusions -->
+        <div class="dp-dlg-section">
+          <h4><i class="fas fa-check"></i> What's Included</h4>
+          <div class="dp-inclusions">
+            <div class="dp-inc-item"><i class="fas fa-plane"></i><span>Flights</span></div>
+            <div class="dp-inc-item"><i class="fas fa-hotel"></i><span>Hotels</span></div>
+            <div class="dp-inc-item"><i class="fas fa-utensils"></i><span>Meals</span></div>
+            <div class="dp-inc-item"><i class="fas fa-bus"></i><span>Transfers</span></div>
+            <div class="dp-inc-item"><i class="fas fa-camera"></i><span>Sightseeing</span></div>
+            <div class="dp-inc-item"><i class="fas fa-user-tie"></i><span>Tour Guide</span></div>
+            <div class="dp-inc-item"><i class="fas fa-shield-alt"></i><span>Travel Insurance</span></div>
+            <div class="dp-inc-item"><i class="fas fa-headset"></i><span>24/7 Support</span></div>
+          </div>
+        </div>
+
+        <!-- Itinerary -->
+        <div class="dp-dlg-section">
+          <h4><i class="fas fa-route"></i> Day-wise Itinerary</h4>
+          <div class="dp-itinerary">
+            <div class="dp-itin-item" *ngFor="let day of detailPkg.itinerary">
+              <div class="dp-day-badge">Day {{ day.day }}</div>
+              <div class="dp-day-content">
+                <strong>{{ day.title }}</strong>
+                <p>{{ day.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Sidebar -->
+      <div class="dp-dlg-right">
+        <div class="dp-price-card">
+          <span class="dp-price-label">STARTING FROM</span>
+          <div class="dp-price-big">₹ {{ detailPkg.price | number }}</div>
+          <span class="dp-price-sub">per person (twin sharing)</span>
+          <ul class="dp-trust">
+            <li><i class="fas fa-shield-alt"></i> 100% Safe & Secure</li>
+            <li><i class="fas fa-tag"></i> Best Price Guarantee</li>
+            <li><i class="fas fa-headset"></i> 24/7 Support</li>
+            <li><i class="fas fa-undo"></i> Free Cancellation</li>
+          </ul>
+          <button class="btn btn-primary dp-book-btn" (click)="switchToBooking()">
+            <i class="fas fa-calendar-check"></i> Book This Tour
+          </button>
+          <a href="tel:+919422421993" class="btn btn-outline dp-call-btn">
+            <i class="fas fa-phone"></i> Call: +91 94224 21993
+          </a>
+        </div>
+
+        <div class="dp-meta-card">
+          <div class="dp-meta-item">
+            <div class="dp-meta-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <span>Duration</span>
+              <strong>{{ detailPkg.nights }} Nights / {{ detailPkg.nights + 1 }} Days</strong>
+            </div>
+          </div>
+          <div class="dp-meta-item">
+            <div class="dp-meta-icon"><i class="fas fa-users"></i></div>
+            <div>
+              <span>Group Size</span>
+              <strong>{{ detailPkg.groupSize }}</strong>
+            </div>
+          </div>
+          <div class="dp-meta-item">
+            <div class="dp-meta-icon"><i class="fas fa-plane"></i></div>
+            <div>
+              <span>Transport</span>
+              <strong>{{ detailPkg.transport }}</strong>
+            </div>
+          </div>
+          <div class="dp-meta-item">
+            <div class="dp-meta-icon"><i class="fas fa-hotel"></i></div>
+            <div>
+              <span>Accommodation</span>
+              <strong>{{ detailPkg.accommodation }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== BOOKING DIALOG ===================== -->
+<div class="dp-overlay" *ngIf="bookingPkg" (click)="closeAll()">
+  <div class="dp-dialog dp-dialog--booking" (click)="$event.stopPropagation()">
+
+    <!-- Booking Hero -->
+    <div class="dp-dlg-hero dp-dlg-hero--sm" [style.backgroundImage]="'url(' + bookingPkg.image + ')'">
+      <div class="dp-dlg-hero-overlay"></div>
+      <button class="dp-dlg-close" (click)="closeAll()"><i class="fas fa-times"></i></button>
+      <div class="dp-dlg-hero-info">
+        <h2>{{ bookingPkg.name }}</h2>
+        <div class="dp-booking-price">
+          <span class="dp-amount">₹ {{ bookingPkg.price | number }}</span>
+          <span class="dp-pp">per person</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Form -->
+    <div class="dp-booking-body" *ngIf="!bookingSent">
+      <h3><i class="fas fa-calendar-check"></i> Book This Tour</h3>
+      <form class="dp-booking-form" (ngSubmit)="submitBooking()">
+        <div class="dp-form-row">
+          <div class="dp-form-group">
+            <label>FULL NAME *</label>
+            <div class="dp-input-wrap">
+              <i class="fas fa-user"></i>
+              <input type="text" [(ngModel)]="booking.name" name="name" placeholder="Your name" required>
+            </div>
+          </div>
+          <div class="dp-form-group">
+            <label>PHONE *</label>
+            <div class="dp-input-wrap">
+              <i class="fas fa-phone"></i>
+              <input type="tel" [(ngModel)]="booking.phone" name="phone" placeholder="+91 XXXXX XXXXX" required>
+            </div>
+          </div>
+        </div>
+        <div class="dp-form-row">
+          <div class="dp-form-group">
+            <label>EMAIL</label>
+            <div class="dp-input-wrap">
+              <i class="fas fa-envelope"></i>
+              <input type="email" [(ngModel)]="booking.email" name="email" placeholder="your@email.com">
+            </div>
+          </div>
+          <div class="dp-form-group">
+            <label>TRAVEL DATE</label>
+            <div class="dp-input-wrap">
+              <i class="fas fa-calendar"></i>
+              <input type="date" [(ngModel)]="booking.date" name="date">
+            </div>
+          </div>
+        </div>
+        <div class="dp-form-row">
+          <div class="dp-form-group">
+            <label>TRAVELERS</label>
+            <div class="dp-input-wrap dp-select-wrap">
+              <i class="fas fa-users"></i>
+              <select [(ngModel)]="booking.travelers" name="travelers">
+                <option value="1">1 Person</option>
+                <option value="2">2 People</option>
+                <option value="3">3 People</option>
+                <option value="4">4 People</option>
+                <option value="5">5 People</option>
+                <option value="6+">6+ People</option>
+              </select>
+              <i class="fas fa-chevron-down dp-select-arrow"></i>
+            </div>
+          </div>
+          <div class="dp-form-group">
+            <label>SPECIAL REQUESTS</label>
+            <div class="dp-input-wrap">
+              <i class="fas fa-comment"></i>
+              <input type="text" [(ngModel)]="booking.special" name="special" placeholder="Any special needs...">
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary dp-submit-btn">
+          <i class="fas fa-paper-plane"></i> Send Booking Request
+        </button>
+        <a href="tel:+919422421993" class="btn btn-outline dp-call-btn">
+          <i class="fas fa-phone"></i> +91 94224 21993
+        </a>
+      </form>
+    </div>
+
+    <!-- Success State -->
+    <div class="dp-booking-success" *ngIf="bookingSent">
+      <div class="dp-success-icon"><i class="fas fa-check-circle"></i></div>
+      <h3>Booking Request Sent!</h3>
+      <p>Our team will contact you within 24 hours to confirm your tour.</p>
+      <button class="btn btn-primary" (click)="closeAll()">Done</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== CINEMATIC TRANSITION ===================== -->
+<div class="pkg-transition" *ngIf="transitioning">
+  <div class="pkg-transition-bg" [style.backgroundImage]="'url(' + transitionPkg!.image + ')'"></div>
+  <div class="pkg-transition-overlay"></div>
+  <div class="pkg-transition-content">
+    <div class="pkg-transition-loader">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <h2>{{ transitionPkg!.name }}</h2>
+    <p>{{ transitionPkg!.duration }} &nbsp;·&nbsp; Starting ₹ {{ transitionPkg!.price | number }}</p>
+  </div>
+  <div class="pkg-transition-bar"></div>
+</div>

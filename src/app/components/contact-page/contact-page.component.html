@@ -1,0 +1,101 @@
+<div class="cp-page">
+
+  <!-- Hero -->
+  <section class="cp-hero">
+    <div class="cp-hero-overlay"></div>
+    <div class="cp-hero-content">
+      <button class="cp-back" (click)="goHome()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <span class="cp-tag"><i class="fas fa-envelope"></i> Contact Us</span>
+      <h1>Get In Touch</h1>
+      <p>Our travel experts are ready to help you plan your perfect holiday</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="cp-section">
+    <div class="container">
+      <div class="cp-grid">
+
+        <!-- Left: Info Cards + Map -->
+        <div class="cp-left">
+          <div class="cp-info-cards">
+            <div class="cp-info-card" *ngFor="let c of infoCards">
+              <div class="cp-card-icon"><i [class]="c.icon"></i></div>
+              <div class="cp-card-text">
+                <h4>{{ c.title }}</h4>
+                <p *ngFor="let line of c.lines">{{ line }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="cp-map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d242117.78!2d73.7278!3d18.5204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890"
+              width="100%" height="220" style="border:0;border-radius:16px;" allowfullscreen loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="cp-form-wrap">
+
+          <!-- Success -->
+          <div class="cp-success" *ngIf="sent">
+            <div class="cp-success-icon"><i class="fas fa-check-circle"></i></div>
+            <h3>Message Sent!</h3>
+            <p>Thank you for reaching out. We'll get back to you within 24 hours.</p>
+            <button class="btn btn-primary" (click)="sent=false">Send Another</button>
+          </div>
+
+          <!-- Form -->
+          <form *ngIf="!sent" (ngSubmit)="send()">
+            <h3 class="cp-form-title"><i class="fas fa-paper-plane"></i> Send Us a Message</h3>
+
+            <div class="cp-form-row">
+              <div class="cp-form-group">
+                <label>Your Name</label>
+                <div class="cp-input-wrap">
+                  <i class="fas fa-user"></i>
+                  <input type="text" [(ngModel)]="form.name" name="name" placeholder="Full name" required>
+                </div>
+              </div>
+              <div class="cp-form-group">
+                <label>Email Address</label>
+                <div class="cp-input-wrap">
+                  <i class="fas fa-envelope"></i>
+                  <input type="email" [(ngModel)]="form.email" name="email" placeholder="your@email.com" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="cp-form-group">
+              <label>Subject</label>
+              <div class="cp-input-wrap">
+                <i class="fas fa-tag"></i>
+                <input type="text" [(ngModel)]="form.subject" name="subject" placeholder="How can we help?">
+              </div>
+            </div>
+
+            <div class="cp-form-group">
+              <label>Message</label>
+              <div class="cp-input-wrap cp-textarea-wrap">
+                <i class="fas fa-comment"></i>
+                <textarea [(ngModel)]="form.message" name="message" rows="5"
+                          placeholder="Tell us about your travel plans..." required></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary cp-submit-btn">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>

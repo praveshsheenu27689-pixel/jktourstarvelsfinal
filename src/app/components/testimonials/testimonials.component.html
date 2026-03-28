@@ -1,0 +1,45 @@
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <div class="google-badge">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/272px-Google_2015_logo.svg.png"
+             alt="Google" class="google-icon" loading="lazy">
+        <div>
+          <p class="hear-label">Hear From Our Customers</p>
+          <div class="google-stars">
+            <i class="fas fa-star" *ngFor="let s of [1,2,3,4,5]"></i>
+            <span>4.9 / 5 on Google</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonials-slider">
+      <div class="testimonial-card" *ngFor="let t of data.testimonials; let i = index"
+           [class.active]="current === i">
+        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+        <p class="testimonial-text">{{ t.text }}</p>
+        <div class="testimonial-footer">
+          <div class="testimonial-avatar">{{ t.name.charAt(0) }}</div>
+          <div class="testimonial-info">
+            <strong>{{ t.name }}</strong>
+            <span><i class="fas fa-map-marker-alt"></i> {{ t.location }}</span>
+          </div>
+          <div class="testimonial-stars">
+            <i class="fas fa-star" *ngFor="let s of [1,2,3,4,5]"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-nav">
+      <button class="nav-btn" (click)="prev()"><i class="fas fa-chevron-left"></i></button>
+      <div class="testimonial-dots">
+        <button *ngFor="let t of data.testimonials; let i = index"
+                [class.active]="current === i"
+                (click)="goTo(i)"></button>
+      </div>
+      <button class="nav-btn" (click)="next()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+</section>

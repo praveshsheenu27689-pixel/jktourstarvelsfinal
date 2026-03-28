@@ -1,0 +1,36 @@
+<section class="about-section" id="about">
+  <div class="container">
+
+    <!-- "Looking for something different?" — exact from site -->
+    <div class="customize-block">
+      <div class="customize-text">
+        <h2>Looking for something different?</h2>
+        <p>Tours can be fully customized. Contact our helpful team to create a tour itinerary just for you.</p>
+        <button class="btn btn-primary" (click)="goTo('contact')">
+          <i class="fas fa-phone"></i> Contact Us
+        </button>
+      </div>
+      <div class="customize-img">
+        <img src="https://cdn.yourholiday.me/static/dynimg/itinerary/99/1200x900/3191480-3191479_azin-javadzadeh-wmpyrpas7dq-unsplash.jpg"
+             alt="Customize your tour" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Why Choose Us -->
+    <div class="why-us">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-thumbs-up"></i> Why Choose Us</span>
+        <h2>The J K Tours And Travels Difference</h2>
+        <p>We don't just plan tours — we create memories that last a lifetime</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card" *ngFor="let w of whyUs">
+          <div class="why-icon"><i [class]="w.icon"></i></div>
+          <h3>{{ w.title }}</h3>
+          <p>{{ w.desc }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

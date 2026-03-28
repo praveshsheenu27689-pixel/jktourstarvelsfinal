@@ -1,0 +1,68 @@
+<section class="map-section" id="map">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag"><i class="fas fa-globe"></i> Explore the World</span>
+      <h2>Our Global Destinations</h2>
+      <p>Click on any destination to discover tours, packages and travel tips from J K Tours And Travels, Pune</p>
+    </div>
+
+    <div class="map-wrapper">
+      <!-- World Map Background -->
+      <div class="map-bg">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png"
+             alt="World Map" loading="lazy" class="world-map-img">
+
+        <!-- Region Markers -->
+        <div class="region-marker"
+             *ngFor="let r of regions"
+             [style.left.%]="r.x"
+             [style.top.%]="r.y"
+             [class.active]="activeRegion?.id === r.id"
+             (click)="selectRegion(r)">
+          <div class="marker-pin">
+            <span class="marker-flag">{{ r.flag }}</span>
+            <div class="marker-tip"></div>
+          </div>
+          <div class="marker-label">{{ r.name }}</div>
+
+          <!-- Popup -->
+          <div class="marker-popup" *ngIf="activeRegion?.id === r.id" (click)="$event.stopPropagation()">
+            <img [src]="r.image" [alt]="r.name" class="popup-img">
+            <div class="popup-body">
+              <h4>{{ r.name }}</h4>
+              <p>{{ r.desc }}</p>
+              <div class="popup-meta">
+                <span class="popup-price"><i class="fas fa-tag"></i> {{ r.price }}</span>
+                <span class="popup-tours"><i class="fas fa-suitcase"></i> {{ r.tours }} Tours</span>
+              </div>
+              <button class="btn btn-primary btn-sm" (click)="goTo('packages')">
+                View Tours <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Destination Sidebar -->
+      <div class="map-sidebar">
+        <h3><i class="fas fa-map-marker-alt"></i> Top Destinations</h3>
+        <div class="map-dest-list">
+          <div class="map-dest-item"
+               *ngFor="let r of regions"
+               [class.active]="activeRegion?.id === r.id"
+               (click)="selectRegion(r)">
+            <img [src]="r.image" [alt]="r.name" class="dest-thumb">
+            <div class="dest-info">
+              <div class="dest-flag-name">
+                <span class="dest-flag-badge">{{ r.flag }}</span>
+                <strong>{{ r.name }}</strong>
+              </div>
+              <span>{{ r.tours }} tours · {{ r.price }}</span>
+            </div>
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,59 @@
+<section class="timeline-section" id="timeline">
+
+  <!-- Background world map watermark -->
+  <div class="tl-map-bg"></div>
+
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag"><i class="fas fa-route"></i> How It Works</span>
+      <h2>Your Journey Starts Here</h2>
+      <p>From dream to destination — we handle every detail so you travel stress-free</p>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="tl-stats">
+      <div class="tl-stat" *ngFor="let s of stats">
+        <span class="tl-stat-num" [attr.data-target]="s.num">{{ s.num }}</span>
+        <span class="tl-stat-label">{{ s.label }}</span>
+      </div>
+    </div>
+
+    <!-- Steps grid -->
+    <div class="tl-steps">
+      <div class="tl-step" *ngFor="let step of timelineSteps; let i = index">
+        <div class="tl-step-num">{{ i + 1 }}</div>
+        <div class="tl-step-icon-wrap">
+          <div class="tl-step-icon">
+            <i [class]="step.icon"></i>
+          </div>
+          <div class="tl-step-connector" *ngIf="i < timelineSteps.length - 1"></div>
+        </div>
+        <div class="tl-step-body">
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.desc }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why choose us -->
+    <div class="tl-why">
+      <div class="tl-why-card" *ngFor="let w of whyUs">
+        <div class="tl-why-icon"><i [class]="w.icon"></i></div>
+        <div>
+          <strong>{{ w.title }}</strong>
+          <p>{{ w.desc }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-cta">
+      <p>Every tour is fully customized to your preferences and budget.</p>
+      <button class="btn btn-primary btn-lg" (click)="goTo('booking')">
+        <i class="fas fa-calendar-check"></i> Plan My Custom Tour
+      </button>
+      <a href="tel:+919422421993" class="btn btn-outline btn-lg">
+        <i class="fas fa-phone"></i> Call Us Now
+      </a>
+    </div>
+  </div>
+</section>

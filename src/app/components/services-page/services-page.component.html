@@ -1,0 +1,89 @@
+<div class="sp-page">
+
+  <!-- Hero -->
+  <section class="sp-hero">
+    <div class="sp-hero-overlay"></div>
+    <div class="sp-hero-content">
+      <button class="sp-back" (click)="goHome()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <span class="sp-tag"><i class="fas fa-concierge-bell"></i> Our Services</span>
+      <h1>How We Work</h1>
+      <p>From dream to destination — we handle every detail so you travel stress-free</p>
+    </div>
+    <!-- floating plane -->
+    <div class="sp-plane"><i class="fas fa-plane"></i></div>
+  </section>
+
+  <!-- Stats -->
+  <div class="sp-stats-wrap">
+    <div class="container">
+      <div class="sp-stats">
+        <div class="sp-stat" *ngFor="let s of stats">
+          <span class="sp-stat-num">{{ s.num }}</span>
+          <span class="sp-stat-label">{{ s.label }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <section class="sp-steps-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Your Journey Starts Here</h2>
+        <p>Six simple steps to your perfect holiday</p>
+      </div>
+      <div class="sp-steps">
+        <div class="sp-step" *ngFor="let step of steps; let i = index">
+          <div class="sp-step-number">{{ i + 1 }}</div>
+          <div class="sp-step-icon"><i [class]="step.icon"></i></div>
+          <div class="sp-step-body">
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.desc }}</p>
+          </div>
+          <div class="sp-step-arrow" *ngIf="i < steps.length - 1">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Us -->
+  <section class="sp-why-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-thumbs-up"></i> Why Choose Us</span>
+        <h2>The JK Tours Difference</h2>
+        <p>We don't just plan tours — we create memories that last a lifetime</p>
+      </div>
+      <div class="sp-why-grid">
+        <div class="sp-why-card" *ngFor="let w of whyUs">
+          <div class="sp-why-icon"><i [class]="w.icon"></i></div>
+          <h3>{{ w.title }}</h3>
+          <p>{{ w.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="sp-cta-section">
+    <div class="container">
+      <div class="sp-cta">
+        <h2>Ready to Plan Your Dream Holiday?</h2>
+        <p>Every tour is fully customized to your preferences and budget.</p>
+        <div class="sp-cta-btns">
+          <button class="btn btn-primary btn-lg" (click)="goBooking()">
+            <i class="fas fa-calendar-check"></i> Plan My Tour
+          </button>
+          <a href="tel:+919422421993" class="btn btn-outline btn-lg">
+            <i class="fas fa-phone"></i> Call Us Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

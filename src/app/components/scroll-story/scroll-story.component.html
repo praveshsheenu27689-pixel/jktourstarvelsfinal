@@ -1,0 +1,34 @@
+<section class="scroll-story" id="story">
+  <div class="story-panel" *ngFor="let s of stories; let i = index"
+       [class]="'story-panel-' + i"
+       [class.reverse]="i % 2 !== 0">
+    <div class="container story-container">
+      <div class="story-text-content">
+        <span class="story-tag">{{ s.tag }}</span>
+        <h2>{{ s.title }}</h2>
+        <p>{{ s.text }}</p>
+        <div class="story-stats">
+          <div class="story-stat">
+            <span class="story-stat-num">{{ s.stat1 }}</span>
+            <span class="story-stat-label">{{ s.stat1Label }}</span>
+          </div>
+          <div class="story-stat">
+            <span class="story-stat-num">{{ s.stat2 }}</span>
+            <span class="story-stat-label">{{ s.stat2Label }}</span>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="goTo('packages')">
+          <i class="fas fa-arrow-right"></i> Explore Tours
+        </button>
+      </div>
+
+      <div class="story-img">
+        <img [src]="s.image" [alt]="s.title" loading="lazy">
+        <div class="story-img-badge">
+          <i class="fas fa-map-marker-alt"></i>
+          {{ s.title.split('—')[0].trim() }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

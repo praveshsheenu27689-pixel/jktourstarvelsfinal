@@ -1,0 +1,230 @@
+<section class="packages" id="packages">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag"><i class="fas fa-suitcase"></i> Handcrafted Itineraries</span>
+      <h2>Popular Tour Packages</h2>
+      <p>Choose your dream destination — every package crafted with care for an unforgettable journey</p>
+    </div>
+
+    <!-- Destination Tabs -->
+    <div class="pkg-filters">
+      <button *ngFor="let tab of tabs"
+              [class.active]="activeTab === tab.key"
+              (click)="setTab(tab.key)">
+        <span class="tab-flag">{{ tab.flag }}</span> {{ tab.label }}
+      </button>
+    </div>
+
+    <!-- 4 Sub-Package Cards -->
+    <div class="sub-pkg-grid">
+      <div class="sub-pkg-card" *ngFor="let pkg of currentSubPackages">
+        <div class="sub-pkg-duration-badge">{{ pkg.duration }}</div>
+        <div class="sub-pkg-name">{{ pkg.name }}</div>
+        <div class="sub-pkg-dest"><i class="fas fa-map-marker-alt"></i> {{ activeTab }}</div>
+        <div class="sub-pkg-features">
+          <span><i class="fas fa-plane"></i> Flights</span>
+          <span><i class="fas fa-hotel"></i> Hotels</span>
+          <span><i class="fas fa-utensils"></i> Meals</span>
+          <span><i class="fas fa-bus"></i> Transfers</span>
+        </div>
+        <div class="sub-pkg-price">
+          <span class="sub-price-label">From</span>
+          <span class="sub-price-val">₹ {{ pkg.price | number }}</span>
+          <span class="sub-price-pp">/ person</span>
+        </div>
+        <button class="btn btn-primary sub-pkg-btn" (click)="openSubBooking(pkg)">
+          <i class="fas fa-calendar-check"></i> Book Now
+        </button>
+      </div>
+    </div>
+
+    <!-- If tab has full packages (Bali/Dubai/Thailand/Singapore), show them below -->
+    <div *ngIf="currentPackages.length > 0" class="pkg-full-section">
+      <div class="pkg-full-header">
+        <h3><i class="fas fa-list"></i> All {{ activeTab }} Packages</h3>
+      </div>
+      <div class="pkg-grid">
+        <div class="pkg-card" *ngFor="let pkg of currentPackages" (click)="openDetail(pkg)">
+          <div class="pkg-img-wrap">
+            <img [src]="pkg.image" [alt]="pkg.title" loading="lazy">
+            <span class="pkg-badge" *ngIf="pkg.badge">{{ pkg.badge }}</span>
+            <div class="pkg-img-title">
+              <h3>{{ pkg.title }}</h3>
+              <p class="pkg-itinerary-overlay">
+                <i class="fas fa-map-marker-alt"></i> {{ pkg.itinerary }}
+              </p>
+            </div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-footer">
+              <div class="pkg-price">
+                <span class="price-label">per person</span>
+                <span class="current-price">₹ {{ pkg.price | number }}</span>
+              </div>
+              <span class="pkg-cta">View Details <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Package Detail Modal (for full packages) -->
+<div class="pkg-modal-overlay" *ngIf="selectedPkg && !showBookingDialog" (click)="closeDetail()">
+  <div class="pkg-modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeDetail()"><i class="fas fa-times"></i></button>
+    <div class="modal-hero">
+      <img [src]="selectedPkg.image" [alt]="selectedPkg.title">
+      <div class="modal-hero-overlay">
+        <span class="modal-badge" *ngIf="selectedPkg.badge">{{ selectedPkg.badge }}</span>
+        <h2>{{ selectedPkg.title }}</h2>
+        <p><i class="fas fa-map-marker-alt"></i> {{ selectedPkg.itinerary }}</p>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-left">
+        <div class="modal-section">
+          <h4><i class="fas fa-star"></i> Tour Highlights</h4>
+          <ul class="highlight-list">
+            <li *ngFor="let h of getHighlights(selectedPkg)"><i class="fas fa-check-circle"></i> {{ h }}</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4><i class="fas fa-check"></i> What's Included</h4>
+          <div class="inclusion-grid">
+            <div class="inclusion-item" *ngFor="let inc of inclusions">
+              <i [class]="inc.icon"></i> {{ inc.label }}
+            </div>
+          </div>
+        </div>
+        <div class="modal-section">
+          <h4><i class="fas fa-route"></i> Day-wise Itinerary</h4>
+          <div class="itinerary-list">
+            <div class="itinerary-day" *ngFor="let day of getItinerary(selectedPkg); let i = index">
+              <div class="day-num">Day {{ i + 1 }}</div>
+              <div class="day-detail">
+                <strong>{{ day.title }}</strong>
+                <p>{{ day.desc }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-right">
+        <div class="modal-price-box">
+          <p class="modal-price-label">Starting from</p>
+          <div class="modal-price">₹ {{ selectedPkg.price | number }}</div>
+          <p class="modal-price-sub">per person (twin sharing)</p>
+          <div class="modal-features">
+            <div><i class="fas fa-shield-alt"></i> 100% Safe & Secure</div>
+            <div><i class="fas fa-tags"></i> Best Price Guarantee</div>
+            <div><i class="fas fa-headset"></i> 24/7 Support</div>
+            <div><i class="fas fa-undo"></i> Free Cancellation</div>
+          </div>
+          <button class="btn btn-primary modal-book-btn" (click)="bookNow()">
+            <i class="fas fa-calendar-check"></i> Book This Tour
+          </button>
+          <a href="tel:+919422421993" class="modal-call-btn">
+            <i class="fas fa-phone"></i> Call: +91 94224 21993
+          </a>
+        </div>
+        <div class="modal-quick-info">
+          <div class="quick-item"><i class="fas fa-clock"></i><div><span>Duration</span><strong>{{ getDuration(selectedPkg) }}</strong></div></div>
+          <div class="quick-item"><i class="fas fa-users"></i><div><span>Group Size</span><strong>2 – 20 People</strong></div></div>
+          <div class="quick-item"><i class="fas fa-plane"></i><div><span>Transport</span><strong>Flight + Coach</strong></div></div>
+          <div class="quick-item"><i class="fas fa-hotel"></i><div><span>Accommodation</span><strong>3★ / 4★ Hotels</strong></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Booking Dialog (from full package modal) -->
+<div class="pkg-modal-overlay" *ngIf="showBookingDialog" (click)="closeBookingDialog()">
+  <div class="pkg-booking-dialog" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeBookingDialog()"><i class="fas fa-times"></i></button>
+    <div class="pkg-booking-success" *ngIf="bookingSubmitted">
+      <div class="success-icon-wrap"><i class="fas fa-check-circle"></i></div>
+      <h3>Booking Request Sent!</h3>
+      <p>Thank you, <strong>{{ bookingForm.name }}</strong>! Our team will contact you within 2 hours.</p>
+      <p class="success-pkg-name"><i class="fas fa-suitcase"></i> {{ selectedPkg?.title }}</p>
+      <button class="btn btn-primary" (click)="closeBookingDialog()">Close</button>
+    </div>
+    <ng-container *ngIf="!bookingSubmitted">
+      <div class="pkg-booking-hero">
+        <img [src]="selectedPkg?.image" [alt]="selectedPkg?.title">
+        <div class="pkg-booking-hero-overlay">
+          <h3>{{ selectedPkg?.title }}</h3>
+          <span class="pkg-booking-price">₹ {{ selectedPkg?.price | number }} <small>per person</small></span>
+        </div>
+      </div>
+      <div class="pkg-booking-body">
+        <h4><i class="fas fa-calendar-check"></i> Book This Tour</h4>
+        <form (ngSubmit)="submitBooking()" #bForm="ngForm">
+          <div class="bform-row">
+            <div class="bform-group"><label>Full Name *</label><div class="bform-input"><i class="fas fa-user"></i><input type="text" [(ngModel)]="bookingForm.name" name="bname" placeholder="Your name" required></div></div>
+            <div class="bform-group"><label>Phone *</label><div class="bform-input"><i class="fas fa-phone"></i><input type="tel" [(ngModel)]="bookingForm.phone" name="bphone" placeholder="+91 XXXXX XXXXX" required></div></div>
+          </div>
+          <div class="bform-row">
+            <div class="bform-group"><label>Email</label><div class="bform-input"><i class="fas fa-envelope"></i><input type="email" [(ngModel)]="bookingForm.email" name="bemail" placeholder="your@email.com"></div></div>
+            <div class="bform-group"><label>Travel Date</label><div class="bform-input"><i class="fas fa-calendar"></i><input type="date" [(ngModel)]="bookingForm.date" name="bdate"></div></div>
+          </div>
+          <div class="bform-row">
+            <div class="bform-group"><label>Travelers</label><div class="bform-input"><i class="fas fa-users"></i><select [(ngModel)]="bookingForm.travelers" name="btravelers"><option value="1">1 Person</option><option value="2">2 People</option><option value="3-5">3–5 People</option><option value="6-10">6–10 People</option><option value="10+">10+ People</option></select></div></div>
+            <div class="bform-group"><label>Special Requests</label><div class="bform-input"><i class="fas fa-comment"></i><input type="text" [(ngModel)]="bookingForm.message" name="bmsg" placeholder="Any special needs..."></div></div>
+          </div>
+          <div class="bform-actions">
+            <button type="submit" class="btn btn-primary bform-submit" [disabled]="bForm.invalid"><i class="fas fa-paper-plane"></i> Send Booking Request</button>
+            <a href="tel:+919422421993" class="bform-call"><i class="fas fa-phone"></i> +91 94224 21993</a>
+          </div>
+        </form>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<!-- Sub-Package Booking Dialog -->
+<div class="pkg-modal-overlay" *ngIf="showSubBookingDialog" (click)="closeSubBooking()">
+  <div class="pkg-booking-dialog" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeSubBooking()"><i class="fas fa-times"></i></button>
+    <div class="pkg-booking-success" *ngIf="subBookingSubmitted">
+      <div class="success-icon-wrap"><i class="fas fa-check-circle"></i></div>
+      <h3>Booking Request Sent!</h3>
+      <p>Thank you, <strong>{{ subBookingForm.name }}</strong>! Our team will contact you within 2 hours.</p>
+      <p class="success-pkg-name"><i class="fas fa-suitcase"></i> {{ selectedSubPkg?.name }} · {{ selectedSubPkg?.duration }}</p>
+      <button class="btn btn-primary" (click)="closeSubBooking()">Close</button>
+    </div>
+    <ng-container *ngIf="!subBookingSubmitted">
+      <div class="pkg-booking-body sub-booking-body">
+        <div class="sub-booking-header">
+          <div class="sub-booking-dest">{{ activeTabFlag }}</div>
+          <h3>{{ selectedSubPkg?.name }}</h3>
+          <div class="sub-booking-meta">
+            <span class="sub-booking-duration"><i class="fas fa-moon"></i> {{ selectedSubPkg?.duration }}</span>
+            <span class="sub-booking-price">₹ {{ selectedSubPkg?.price | number }} <small>/ person</small></span>
+          </div>
+        </div>
+        <h4><i class="fas fa-calendar-check"></i> Book This Package</h4>
+        <form (ngSubmit)="submitSubBooking()" #sbForm="ngForm">
+          <div class="bform-row">
+            <div class="bform-group"><label>Full Name *</label><div class="bform-input"><i class="fas fa-user"></i><input type="text" [(ngModel)]="subBookingForm.name" name="sbname" placeholder="Your name" required></div></div>
+            <div class="bform-group"><label>Phone *</label><div class="bform-input"><i class="fas fa-phone"></i><input type="tel" [(ngModel)]="subBookingForm.phone" name="sbphone" placeholder="+91 XXXXX XXXXX" required></div></div>
+          </div>
+          <div class="bform-row">
+            <div class="bform-group"><label>Email</label><div class="bform-input"><i class="fas fa-envelope"></i><input type="email" [(ngModel)]="subBookingForm.email" name="sbemail" placeholder="your@email.com"></div></div>
+            <div class="bform-group"><label>Travel Date</label><div class="bform-input"><i class="fas fa-calendar"></i><input type="date" [(ngModel)]="subBookingForm.date" name="sbdate"></div></div>
+          </div>
+          <div class="bform-row">
+            <div class="bform-group"><label>Travelers</label><div class="bform-input"><i class="fas fa-users"></i><select [(ngModel)]="subBookingForm.travelers" name="sbtravelers"><option value="1">1 Person</option><option value="2">2 People</option><option value="3-5">3–5 People</option><option value="6-10">6–10 People</option><option value="10+">10+ People</option></select></div></div>
+            <div class="bform-group"><label>Special Requests</label><div class="bform-input"><i class="fas fa-comment"></i><input type="text" [(ngModel)]="subBookingForm.message" name="sbmsg" placeholder="Any special needs..."></div></div>
+          </div>
+          <div class="bform-actions">
+            <button type="submit" class="btn btn-primary bform-submit" [disabled]="sbForm.invalid"><i class="fas fa-paper-plane"></i> Send Booking Request</button>
+            <a href="tel:+919422421993" class="bform-call"><i class="fas fa-phone"></i> +91 94224 21993</a>
+          </div>
+        </form>
+      </div>
+    </ng-container>
+  </div>
+</div>

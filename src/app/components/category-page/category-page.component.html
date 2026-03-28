@@ -1,0 +1,74 @@
+<div class="cat-page" *ngIf="exp; else notFoundTpl">
+
+  <!-- HERO -->
+  <section class="cp-hero" [style.backgroundImage]="'url(' + exp.heroImage + ')'">
+    <div class="cp-hero-overlay"></div>
+    <div class="cp-hero-content">
+      <button class="cp-back" (click)="goHome()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <span class="cp-hero-tag"><i class="fas fa-th"></i> Business Tour</span>
+      <h1>{{ exp.name }}</h1>
+      <p class="cp-tagline">{{ exp.tagline }}</p>
+    </div>
+  </section>
+
+  <!-- DESCRIPTION -->
+  <section class="cp-desc-section">
+    <div class="container">
+      <div class="cp-desc-grid">
+        <div class="cp-desc-left">
+          <h2>About This Experience</h2>
+          <p>{{ exp.description }}</p>
+          <div class="cp-highlights">
+            <h4><i class="fas fa-check-circle"></i> What's Covered</h4>
+            <ul>
+              <li *ngFor="let h of exp.highlights">
+                <i class="fas fa-map-marker-alt"></i> {{ h }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="cp-desc-right">
+          <div class="cp-cta-card">
+            <div class="cp-cta-icon"><i class="fas fa-headset"></i></div>
+            <h3>Plan Your {{ exp.name }}</h3>
+            <p>Talk to our travel experts and get a customized itinerary tailored to your preferences and budget.</p>
+            <a href="tel:+919422421993" class="btn btn-primary">
+              <i class="fas fa-phone"></i> Call: +91 94224 21993
+            </a>
+            <a href="https://wa.me/919422421993" target="_blank" class="btn btn-outline">
+              <i class="fab fa-whatsapp"></i> WhatsApp Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="cp-features-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag"><i class="fas fa-star"></i> Why Choose Us</span>
+        <h2>What Makes It Special</h2>
+      </div>
+      <div class="cp-features-grid">
+        <div class="cp-feature-card" *ngFor="let f of exp.features">
+          <div class="cp-feature-icon"><i [class]="f.icon"></i></div>
+          <h4>{{ f.title }}</h4>
+          <p>{{ f.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<ng-template #notFoundTpl>
+  <div class="cp-notfound">
+    <i class="fas fa-compass"></i>
+    <h2>Experience not found</h2>
+    <button class="btn btn-primary" (click)="goHome()">Go Home</button>
+  </div>
+</ng-template>

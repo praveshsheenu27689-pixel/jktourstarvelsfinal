@@ -1,0 +1,140 @@
+.dl-page { min-height: 100vh; }
+
+.dl-hero {
+  height: 340px;
+  background: url('https://cdn.yourholiday.me/static/dynimg/itinerary/37/600x450/2185258-2185257_pexels-photo-209741.jpg') center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+
+  &--intl {
+    background-image: url('https://cdn.yourholiday.me/static/dynimg/destination/21/600x300/2190173-2190172_europe-1-main-image.jpg');
+  }
+}
+
+.dl-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.65));
+}
+
+.dl-hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 2.5rem 2rem;
+  color: #fff;
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0.4rem 0 0.3rem;
+  }
+
+  p { font-size: 1rem; opacity: 0.88; margin: 0; }
+}
+
+.dl-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background 0.2s;
+  &:hover { background: rgba(255,255,255,0.25); }
+}
+
+.dl-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--accent, #f97316);
+  color: #fff;
+  padding: 0.25rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.dl-section {
+  padding: 3rem 0 4rem;
+  background: #f8f9fa;
+}
+
+.dl-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+
+  @media (max-width: 1024px) { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 768px)  { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 480px)  { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+}
+
+.dl-card {
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: #fff;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.14);
+
+    .dl-overlay { opacity: 1; }
+    img { transform: scale(1.07); }
+  }
+}
+
+.dl-img-wrap {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+}
+
+.dl-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.38);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  span {
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+}
+
+.dl-info {
+  padding: 0.75rem 1rem;
+
+  p {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1e3a5f;
+    margin: 0;
+  }
+}

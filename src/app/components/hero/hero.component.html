@@ -1,0 +1,113 @@
+<section class="hero" id="home">
+  <!-- Background Image from jktourstravels.in -->
+  <div class="hero-bg" [style.backgroundImage]="'url(https://cdn.yourholiday.me/static/dynimg/itinerary/85/1200x900/2191615-2191614_adobestock_223056954.jpg)'"></div>
+  <div class="hero-overlay"></div>
+
+  <!-- Floating Particles -->
+  <div class="hero-particles">
+    <span class="particle" *ngFor="let p of [1,2,3,4,5,6]"></span>
+  </div>
+
+  <!-- Content -->
+  <div class="container hero-content">
+    <div class="hero-text">
+      <span class="hero-tag">
+        <i class="fas fa-bolt"></i> Holiday Deals
+      </span>
+      <h1 class="hero-title">
+        Great Holiday Deals<br>
+        <span class="hero-typewriter">{{ typedText }}<span class="cursor">|</span></span>
+      </h1>
+      <p class="hero-subtitle">
+        Tours can be fully customized. Contact our helpful team to create a tour itinerary just for you.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-accent" (click)="scrollTo('packages')" style="cursor:pointer">
+          <i class="fas fa-compass"></i> Explore Packages
+        </a>
+        <a class="btn btn-white" (click)="scrollTo('contact')" style="cursor:pointer">
+          <i class="fas fa-phone"></i> Contact Us
+        </a>
+      </div>
+    </div>
+
+    <!-- Search Form -->
+    <div class="search-form">
+      <div class="search-form-title">
+        <i class="fas fa-search"></i> Search for Holiday Deals
+      </div>
+      <div class="search-fields">
+        <div class="search-field">
+          <i class="fas fa-map-marker-alt"></i>
+          <input type="text" placeholder="Destination name" [(ngModel)]="searchData.destination">
+        </div>
+        <div class="search-field">
+          <i class="fas fa-calendar-alt"></i>
+          <input type="date" [(ngModel)]="searchData.date" placeholder="Leaving on">
+        </div>
+        <div class="search-field">
+          <i class="fas fa-moon"></i>
+          <select [(ngModel)]="searchData.duration">
+            <option value="">Duration</option>
+            <option value="1_1">1 night</option>
+            <option value="2_2">2 nights</option>
+            <option value="3_3">3 nights</option>
+            <option value="4_4">4 nights</option>
+            <option value="5_6" selected>5 - 6 nights</option>
+            <option value="7_9">7 - 9 nights</option>
+            <option value="10_13">10 - 13 nights</option>
+            <option value="14_17">14 - 17 nights</option>
+          </select>
+        </div>
+        <div class="search-field">
+          <i class="fas fa-users"></i>
+          <select [(ngModel)]="searchData.travelers">
+            <option value="1">1 room</option>
+            <option value="2">2 rooms</option>
+            <option value="3">3 rooms</option>
+          </select>
+        </div>
+        <button class="btn btn-primary search-btn">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </div>
+      <div class="search-popular">
+        <span>Popular:</span>
+        <a *ngFor="let w of data.typewriterWords" (click)="scrollTo('packages')" style="cursor:pointer">
+          {{ w.split(' ')[0] }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="hero-stats">
+    <div class="container stats-container">
+      <div class="hero-stat">
+        <span class="stat-num">25+</span>
+        <span class="stat-label">Destinations</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <span class="stat-num">5000+</span>
+        <span class="stat-label">Happy Travelers</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <span class="stat-num">24/7</span>
+        <span class="stat-label">Support</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="hero-stat">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Customizable</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Hint -->
+  <div class="scroll-hint">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
