@@ -1,0 +1,49 @@
+<div class="ap-page">
+
+  <!-- Hero -->
+  <section class="ap-hero">
+    <div class="ap-hero-overlay"></div>
+    <div class="ap-hero-content">
+      <button class="ap-back" (click)="goHome()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <span class="ap-tag"><i class="fas fa-info-circle"></i> About Us</span>
+      <h1>J K Tours & Travels</h1>
+      <p>Your trusted travel partner since over a decade</p>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="ap-stats-section">
+    <div class="container">
+      <div class="ap-stats">
+        <div class="ap-stat" *ngFor="let s of stats">
+          <span class="ap-stat-value">{{ s.value }}</span>
+          <span class="ap-stat-label">{{ s.label }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Block -->
+  <section class="ap-about-section">
+    <div class="container">
+      <div class="ap-about-block">
+        <div class="ap-about-text">
+          <span class="section-tag"><i class="fas fa-map-marked-alt"></i> Our Story</span>
+          <h2>Looking for something different?</h2>
+          <p>Tours can be fully customized. Contact our helpful team to create a tour itinerary just for you. At J K Tours & Travels, Pune, we believe every journey should be as unique as the traveller taking it.</p>
+          <p>With over 10 years of experience crafting unforgettable travel experiences, we have helped thousands of families, couples and solo travellers explore the world with confidence and comfort.</p>
+          <button class="btn btn-primary" (click)="goContact()">
+            <i class="fas fa-phone"></i> Contact Us
+          </button>
+        </div>
+        <div class="ap-about-img">
+          <img src="https://cdn.yourholiday.me/static/dynimg/itinerary/99/1200x900/3191480-3191479_azin-javadzadeh-wmpyrpas7dq-unsplash.jpg"
+               alt="About JK Tours" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

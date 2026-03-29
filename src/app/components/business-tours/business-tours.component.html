@@ -1,0 +1,38 @@
+<div class="bt-page">
+
+  <!-- Hero -->
+  <section class="bt-hero">
+    <div class="bt-hero-overlay"></div>
+    <div class="bt-hero-content">
+      <button class="bt-back" (click)="goHome()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <span class="bt-tag"><i class="fas fa-briefcase"></i> Tour Experiences</span>
+      <h1>Business Tours</h1>
+      <p>Handcrafted experiences for every kind of traveller</p>
+    </div>
+  </section>
+
+  <!-- Categories Grid -->
+  <section class="bt-section">
+    <div class="container">
+      <div class="bt-grid">
+        <div class="bt-card" *ngFor="let cat of categories; let i = index"
+             (click)="navigate(cat.label)"
+             [style.animation-delay]="(i * 0.08) + 's'">
+          <div class="bt-img-wrap">
+            <img [src]="cat.image" [alt]="cat.label" loading="lazy">
+            <div class="bt-img-overlay"></div>
+          </div>
+          <div class="bt-card-body">
+            <div class="bt-icon"><i [class]="cat.icon"></i></div>
+            <h3>{{ cat.label }}</h3>
+            <p>{{ cat.desc }}</p>
+            <span class="bt-explore">Explore <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,35 @@
+<section class="gallery-section" id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag"><i class="fas fa-images"></i> Photo Gallery</span>
+      <h2>Moments from Paradise</h2>
+      <p>A visual journey through the world's most stunning destinations</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item"
+           *ngFor="let item of galleryImages"
+           [class]="'size-' + item.size"
+           (click)="openLightbox(item)">
+        <img [src]="item.image" [alt]="item.title" loading="lazy">
+        <div class="gallery-overlay">
+          <i class="fas fa-expand-alt"></i>
+          <span>{{ item.title }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" *ngIf="lightboxItem" (click)="closeLightbox()">
+    <div class="lightbox-inner" (click)="$event.stopPropagation()">
+      <button class="lightbox-close" (click)="closeLightbox()">
+        <i class="fas fa-times"></i>
+      </button>
+      <img [src]="lightboxItem.image" [alt]="lightboxItem.title">
+      <div class="lightbox-caption">
+        <i class="fas fa-map-marker-alt"></i> {{ lightboxItem.title }}
+      </div>
+    </div>
+  </div>
+</section>

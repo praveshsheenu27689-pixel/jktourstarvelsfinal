@@ -1,0 +1,41 @@
+<app-loader *ngIf="loading"></app-loader>
+
+<div [class.hidden]="loading">
+  <app-topbar></app-topbar>
+  <app-navbar></app-navbar>
+
+  <!-- Home page sections -->
+  <main *ngIf="isHomePage">
+    <app-hero></app-hero>
+    <app-destinations></app-destinations>
+    <app-deals></app-deals>
+    <app-categories></app-categories>
+    <app-scroll-story></app-scroll-story>
+    <app-map-section></app-map-section>
+    <app-timeline></app-timeline>
+    <app-gallery></app-gallery>
+    <app-testimonials></app-testimonials>
+    <app-booking [prefilledPackage]="selectedPackage"></app-booking>
+    <app-about></app-about>
+    <app-newsletter></app-newsletter>
+    <app-contact></app-contact>
+  </main>
+
+  <!-- Sub-pages (destination, category) -->
+  <router-outlet *ngIf="!isHomePage"></router-outlet>
+
+  <app-footer></app-footer>
+  <app-sticky-bar></app-sticky-bar>
+
+  <div class="floating-cta">
+    <a href="https://wa.me/919422421993" target="_blank" class="whatsapp" title="WhatsApp" rel="noopener noreferrer">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <button class="call" title="Call Us" (click)="scrollTo('contact')">
+      <i class="fas fa-phone"></i>
+    </button>
+    <button class="top" title="Back to Top" (click)="scrollTop($event)">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+  </div>
+</div>

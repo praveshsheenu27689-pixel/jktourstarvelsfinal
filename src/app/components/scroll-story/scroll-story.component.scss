@@ -1,0 +1,110 @@
+.scroll-story { padding: 0; }
+
+.story-panel {
+  padding: 5rem 0;
+  background: var(--bg-white);
+
+  &:nth-child(even) { background: var(--bg-light); }
+}
+
+.story-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.story-panel.reverse .story-container {
+  direction: rtl;
+  > * { direction: ltr; }
+}
+
+.story-text-content {
+  .story-tag {
+    display: inline-block;
+    background: rgba(30,58,95,0.1);
+    color: var(--primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 50px;
+    margin-bottom: 1.2rem;
+  }
+
+  h2 {
+    color: var(--text-dark);
+    margin-bottom: 1.2rem;
+  }
+
+  p {
+    color: var(--text-mid);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+}
+
+.story-stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.story-stat {
+  .story-stat-num {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    color: var(--primary);
+  }
+  .story-stat-label {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.story-img {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+
+  img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  &:hover img { transform: scale(1.04); }
+}
+
+.story-img-badge {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(8px);
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  i { color: var(--accent); }
+}
+
+@media (max-width: 900px) {
+  .story-container { grid-template-columns: 1fr; gap: 2rem; }
+  .story-panel.reverse .story-container { direction: ltr; }
+  .story-img img { height: 280px; }
+}

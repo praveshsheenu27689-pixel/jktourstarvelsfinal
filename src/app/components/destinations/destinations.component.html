@@ -1,0 +1,31 @@
+<section class="destinations" id="destinations">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag"><i class="fas fa-map-marker-alt"></i> Explore The World</span>
+      <h2>Top Destinations</h2>
+      <p>Explore the world's most beautiful destinations with J K Tours And Travels, Pune</p>
+    </div>
+
+    <div class="dest-grid">
+      <div class="dest-card"
+           *ngFor="let dest of visibleDestinations"
+           (click)="openDest(dest)">
+        <div class="dest-img-wrap">
+          <img [src]="dest.image" [alt]="dest.name" loading="lazy">
+        </div>
+        <div class="dest-overlay">
+          <span class="dest-explore">Explore <i class="fas fa-arrow-right"></i></span>
+        </div>
+        <div class="dest-info">
+          <p class="dest-name">{{ dest.name }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="dest-show-more" *ngIf="!showAll">
+      <button class="btn btn-outline" (click)="showAll = true">
+        <i class="fas fa-th-large"></i> View All {{ data.destinations.length }} Destinations
+      </button>
+    </div>
+  </div>
+</section>

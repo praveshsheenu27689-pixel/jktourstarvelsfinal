@@ -1,0 +1,65 @@
+<section class="deals-section" id="deals">
+  <div class="container">
+
+    <div class="deals-header">
+      <div class="deals-header-left">
+        <span class="section-tag"><i class="fas fa-bolt"></i> Flash Deals</span>
+        <h2>Exclusive Limited-Time Offers</h2>
+        <p>Grab these incredible deals before they're gone — handpicked discounts on our most popular tours</p>
+      </div>
+      <div class="deals-countdown">
+        <p class="countdown-label"><i class="fas fa-clock"></i> Offer ends in:</p>
+        <div class="countdown-timer">
+          <div class="countdown-box">
+            <span class="count-num">{{ countdown.days }}</span>
+            <span class="count-label">Days</span>
+          </div>
+          <span class="count-sep">:</span>
+          <div class="countdown-box">
+            <span class="count-num">{{ countdown.hours }}</span>
+            <span class="count-label">Hours</span>
+          </div>
+          <span class="count-sep">:</span>
+          <div class="countdown-box">
+            <span class="count-num">{{ countdown.mins }}</span>
+            <span class="count-label">Mins</span>
+          </div>
+          <span class="count-sep">:</span>
+          <div class="countdown-box">
+            <span class="count-num">{{ countdown.secs }}</span>
+            <span class="count-label">Secs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="deals-grid">
+      <div class="deal-card" *ngFor="let deal of deals">
+        <div class="deal-img">
+          <img [src]="deal.image" [alt]="deal.title" loading="lazy">
+          <span class="deal-discount">{{ deal.discount }}</span>
+          <span class="deal-tag">{{ deal.tag }}</span>
+        </div>
+        <div class="deal-body">
+          <div class="deal-meta">
+            <span><i class="fas fa-clock"></i> {{ deal.duration }}</span>
+            <span><i class="fas fa-calendar"></i> {{ deal.validity }}</span>
+          </div>
+          <h3>{{ deal.title }}</h3>
+          <div class="deal-price">
+            <span class="deal-original">₹{{ deal.originalPrice | number }}</span>
+            <span class="deal-sale">₹{{ deal.salePrice | number }}</span>
+            <span class="deal-pp">/ person</span>
+          </div>
+          <div class="deal-savings">
+            You save ₹{{ (deal.originalPrice - deal.salePrice) | number }}!
+          </div>
+          <button class="btn btn-primary" (click)="goTo('packages')">
+            <i class="fas fa-bolt"></i> Grab This Deal
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

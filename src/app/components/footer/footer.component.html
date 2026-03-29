@@ -1,0 +1,117 @@
+<footer>
+  <div class="footer-top">
+    <div class="container footer-grid">
+
+      <!-- Brand -->
+      <div class="footer-col footer-brand">
+
+        <p>Tours can be fully customized. Contact our helpful team to create a tour itinerary just for you.</p>
+
+        <div class="footer-social">
+          <a href="#" class="social-btn" title="Facebook" (click)="$event.preventDefault()">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-btn" title="Instagram" (click)="$event.preventDefault()">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-btn" title="Twitter" (click)="$event.preventDefault()">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-btn" title="YouTube" (click)="$event.preventDefault()">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="#" class="social-btn" title="WhatsApp" (click)="$event.preventDefault()">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+
+        <div class="footer-currency">
+          <label>Currency</label>
+          <select>
+            <option>United Arab Emirates Dirham</option>
+            <option>Australian Dollar</option>
+            <option>Euro</option>
+            <option>British Pound Sterling</option>
+            <option selected>Indian Rupee</option>
+            <option>New Zealand Dollar</option>
+            <option>Singapore Dollar</option>
+            <option>US Dollar</option>
+          </select>
+        </div>
+        <div class="footer-lang">
+          <label>Language</label>
+          <select>
+            <option value="">-- Select --</option>
+            <option value="en-US" selected>English</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Experiences -->
+      <div class="footer-col">
+        <h4>Experiences</h4>
+        <ul>
+          <li *ngFor="let exp of data.footerExperiences">
+            <a (click)="goTo('categories')" style="cursor:pointer">
+              <i class="fas fa-chevron-right"></i> {{ exp }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a (click)="goTo('destinations')" style="cursor:pointer"><i class="fas fa-chevron-right"></i> Destinations</a></li>
+          <li><a (click)="goTo('packages')" style="cursor:pointer"><i class="fas fa-chevron-right"></i> Fixed Departures</a></li>
+          <li><a (click)="goTo('packages')" style="cursor:pointer"><i class="fas fa-chevron-right"></i> Tour Packages</a></li>
+          <li><a (click)="goTo('about')" style="cursor:pointer"><i class="fas fa-chevron-right"></i> About Us</a></li>
+          <li><a (click)="goTo('contact')" style="cursor:pointer"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+          <li><a (click)="goTo('booking')" style="cursor:pointer"><i class="fas fa-chevron-right"></i> Book a Tour</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-col footer-contact">
+        <h4>Contact Us</h4>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <a href="https://maps.app.goo.gl/H66QWCKxhvnsa2cu6" target="_blank" rel="noopener noreferrer" class="contact-map-link">
+            J K Tours &amp; Travels, Abhimanshree Society, Pashan, Pune, Maharashtra
+          </a>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+91 94224 21993</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>info&#64;jktourstravels.in</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-clock"></i>
+          <span>Mon–Sat: 9AM–7PM | Sun: 10AM–4PM</span>
+        </div>
+
+        <div class="footer-badges">
+          <span><i class="fas fa-shield-alt"></i> 100% Safe</span>
+          <span><i class="fas fa-headset"></i> 24/7 Support</span>
+          <span><i class="fas fa-tags"></i> Best Price</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>© Copyright {{ currentYear }} J K Tours And Travels, Pune. All Rights Reserved.</p>
+      <div class="footer-bottom-links">
+        <a (click)="goTo('home')" style="cursor:pointer">Privacy Policy</a>
+        <a (click)="goTo('home')" style="cursor:pointer">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+

@@ -1,0 +1,38 @@
+<div class="dl-page">
+
+  <!-- Hero -->
+  <section class="dl-hero" [class.dl-hero--intl]="type === 'international'">
+    <div class="dl-hero-overlay"></div>
+    <div class="dl-hero-content">
+      <button class="dl-back" (click)="goHome()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      <span class="dl-tag">
+        <i class="fas fa-{{ type === 'domestic' ? 'flag' : 'globe' }}"></i>
+        {{ type === 'domestic' ? 'Within India' : 'Outside India' }}
+      </span>
+      <h1>{{ title }}</h1>
+      <p>{{ subtitle }}</p>
+    </div>
+  </section>
+
+  <!-- Destinations Grid -->
+  <section class="dl-section">
+    <div class="container">
+      <div class="dl-grid">
+        <div class="dl-card" *ngFor="let dest of destinations" (click)="openDest(dest.name)">
+          <div class="dl-img-wrap">
+            <img [src]="dest.image" [alt]="dest.name" loading="lazy">
+            <div class="dl-overlay">
+              <span>Explore <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+          <div class="dl-info">
+            <p>{{ dest.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

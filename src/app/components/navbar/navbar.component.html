@@ -1,0 +1,115 @@
+<nav class="navbar" [class.scrolled]="scrolled">
+  <div class="container nav-container">
+
+    <!-- Logo -->
+    <a class="nav-logo" (click)="goHome()" style="cursor:pointer">
+      <img src="https://cdn.yourholiday.me/static/dynimg/partner/37/300x150/3562268-3562267_j-k-new-logo.jpg"
+           alt="J K Tours And Travels, Pune" class="logo-img"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"
+           loading="eager">
+      <span class="logo-text-fallback" style="display:none">JK Tours</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="nav-links">
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeSection==='destinations'" (click)="$event.stopPropagation(); navigateDestinations('domestic')" style="cursor:pointer">
+          Domestic
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeSection==='packages'" (click)="$event.stopPropagation(); navigateDestinations('international')" style="cursor:pointer">
+          International
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeSection==='categories'" (click)="$event.stopPropagation(); navigateBusinessTours()" style="cursor:pointer">
+          Business Tour
+        </a>
+      </li>
+      <li class="nav-item" (mouseenter)="closeMega()">
+        <a class="nav-link" [class.active]="activeSection==='about'" (click)="$event.stopPropagation(); navigateAbout()" style="cursor:pointer">
+          About Us
+        </a>
+      </li>
+      <li class="nav-item" (mouseenter)="closeMega()">
+        <a class="nav-link" [class.active]="activeSection==='timeline'" (click)="$event.stopPropagation(); navigateServices()" style="cursor:pointer">
+          Services
+        </a>
+      </li>
+      <li class="nav-item" (mouseenter)="closeMega()">
+        <a class="nav-link" [class.active]="activeSection==='contact'" (click)="$event.stopPropagation(); navigateContact()" style="cursor:pointer">
+          Contact Us
+        </a>
+      </li>
+    </ul>
+
+    <!-- Right Actions -->
+    <div class="nav-actions">
+      <button class="nav-icon-btn search-trigger" (click)="toggleSearch($event)" title="Search">
+        <i class="fas fa-search"></i>
+      </button>
+
+      <!-- Search Panel -->
+      <div class="search-panel" *ngIf="searchOpen" (click)="$event.stopPropagation()">
+        <div class="search-input-wrap">
+          <i class="fas fa-search"></i>
+          <input #searchInput type="text" [(ngModel)]="searchQuery"
+                 (input)="onSearch()"
+                 (keydown.enter)="doSearch()"
+                 placeholder="Search destinations, packages..." autofocus>
+          <button class="search-clear" *ngIf="searchQuery" (click)="clearSearch()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="search-results" *ngIf="searchResults.length > 0">
+          <div class="search-result-item" *ngFor="let r of searchResults" (click)="selectResult(r)">
+            <div class="result-img">
+              <img [src]="r.image" [alt]="r.name" loading="lazy">
+            </div>
+            <div class="result-info">
+              <strong>{{ r.name }}</strong>
+              <span>{{ r.type }}</span>
+            </div>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+        <div class="search-empty" *ngIf="searchQuery && searchResults.length === 0">
+          <i class="fas fa-search"></i>
+          <p>No results for "{{ searchQuery }}"</p>
+        </div>
+        <div class="search-popular" *ngIf="!searchQuery">
+          <p class="popular-label">Popular Searches</p>
+          <div class="popular-tags">
+            <button *ngFor="let tag of popularTags" (click)="quickSearch(tag)">{{ tag }}</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-divider"></div>
+
+      <a class="btn btn-accent btn-sm" (click)="navigateToSection('booking')" style="cursor:pointer">
+        Book Now
+      </a>
+
+      <button class="hamburger" [class.open]="mobileOpen" (click)="toggleMobile()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="mobileOpen">
+    <ul>
+      <li class="mobile-nav-item"><a (click)="navigateDestinations('domestic')"><i class="fas fa-flag"></i> Domestic</a></li>
+      <li class="mobile-nav-item"><a (click)="navigateDestinations('international')"><i class="fas fa-globe"></i> International</a></li>
+      <li class="mobile-nav-item"><a (click)="navigateBusinessTours()"><i class="fas fa-briefcase"></i> Business Tour</a></li>
+      <li class="mobile-nav-item"><a (click)="navigateAbout()"><i class="fas fa-info-circle"></i> About Us</a></li>
+      <li class="mobile-nav-item"><a (click)="navigateServices()"><i class="fas fa-concierge-bell"></i> Services</a></li>
+      <li class="mobile-nav-item"><a (click)="navigateContact()"><i class="fas fa-envelope"></i> Contact Us</a></li>
+      <li class="mobile-nav-item mobile-cta">
+        <a class="btn btn-accent" (click)="navigateToSection('booking')"><i class="fas fa-calendar-check"></i> Book Now</a>
+      </li>
+    </ul>
+  </div>
+</nav>

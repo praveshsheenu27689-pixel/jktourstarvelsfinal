@@ -1,0 +1,20 @@
+<section class="categories" id="categories">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag"><i class="fas fa-th"></i> Experiences</span>
+      <h2>Travel Your Way</h2>
+      <p>Choose from a wide range of travel experiences tailored to your style</p>
+    </div>
+
+    <div class="cat-grid">
+      <div class="cat-card"
+           *ngFor="let exp of data.experiences"
+           (click)="navigate(exp.label)">
+        <div class="cat-icon">
+          <i [class]="exp.icon"></i>
+        </div>
+        <h4>{{ exp.label }}</h4>
+      </div>
+    </div>
+  </div>
+</section>
