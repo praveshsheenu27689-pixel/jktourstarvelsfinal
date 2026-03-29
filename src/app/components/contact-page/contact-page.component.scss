@@ -2,13 +2,20 @@
 
 // ---- HERO ----
 .cp-hero {
+<<<<<<< HEAD
   height: 420px;
+=======
+  height: 320px;
+>>>>>>> 18aafcba21d516c54cdc1d453584d2eb2657d085
   background: linear-gradient(135deg, #0a1628 0%, #1a3560 60%, #0a1628 100%);
   position: relative;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
+<<<<<<< HEAD
   padding-top: 120px;
+=======
+>>>>>>> 18aafcba21d516c54cdc1d453584d2eb2657d085
 
   &::before {
     content: '';
