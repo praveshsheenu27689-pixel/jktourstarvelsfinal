@@ -262,12 +262,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.mobileOpen = false;
     this.searchOpen = false;
     this.activeMenu = null;
-    const isHome = this.router.url === '/' || this.router.url === '';
+    const isHome = this.router.url === '/' || this.router.url === '' || this.router.url === '/#/' || this.router.url === '/#';
     if (isHome) {
       this.scrollSvc.scrollTo(id);
     } else {
       this.router.navigate(['/']).then(() => {
-        setTimeout(() => this.scrollSvc.scrollTo(id), 400);
+        setTimeout(() => this.scrollSvc.scrollTo(id), 100);
       });
     }
   }

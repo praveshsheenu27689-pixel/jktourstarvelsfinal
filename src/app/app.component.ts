@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => this.loading = false, 3300);
     this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((e: any) => {
-      this.isHomePage = e.url === '/' || e.url === '';
+      this.isHomePage = e.url === '/' || e.url === '' || e.url === '/#/' || e.url === '/#';
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     });
   }

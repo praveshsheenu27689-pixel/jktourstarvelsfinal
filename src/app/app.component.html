@@ -1,6 +1,6 @@
-<app-loader *ngIf="loading"></app-loader>
+<app-loader *ngIf="loading && isHomePage"></app-loader>
 
-<div [class.hidden]="loading">
+<div [class.hidden]="loading && isHomePage">
   <app-topbar></app-topbar>
   <app-navbar></app-navbar>
 
